@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results Checker - SRFMV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f8f9fa;
+            color: #333;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: white;
+            color: Black;
+            padding: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 50%;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            padding: 10px;
+            font-size: 1em;
+            text-align: center;
+        }
+
+        .container {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            flex: 1;
+            max-width: 200px;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        .blue { background: #007bff; }
+        .green { background: #28a745; }
+        .dark-green { background: #166534; }
+        .pink { background: #e83e8c; }
+
+        .dropdown-container {
+            margin-top: 15px;
+            display: none;
+        }
+
+        .dropdown {
+            padding: 10px;
+            font-size: 1.1em;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .view-btn {
+            display: none;
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .view-btn:hover {
+            opacity: 0.8;
+        }
+        .quote-container {
+    margin: 20px auto;
+    padding: 10px;
+    width: 80%;
+    background: #f8f8f8;
+    border-left: 5px solid #2575fc;
+    text-align: center;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.success-quote {
+    font-size: 1.2em;
+    font-style: italic;
+    color: #333;
+    font-weight: bold;
+}
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHY-fl771-hQZcAH7bFpIiYeMFDDp4nQrHDQ&s" alt="Logo" class="logo">
+        BD/SIR RAZIK FAREED MAHA VIDYALAYA BANDARAWELA 
+    </header>
+
+    <footer>
+        Examination Department - SRFMV
+    </footer>
+
+    <div class="container">
+        <h1>Check Your Results</h1>
+
+        <div class="button-group">
+            <button class="btn blue" onclick="toggleDropdown('primary')">Primary (Grades 1-5)</button>
+            <button class="btn green" onclick="toggleDropdown('secondary')">Secondary (Grades 6-9)</button>
+            <button class="btn dark-green" onclick="toggleDropdown('olevels')">O-Levels (Grades 10-11)</button>
+            <button class="btn pink" onclick="toggleDropdown('alevels')">A-Levels (Grades 12-13)</button>
+        </div>
+
+        <!-- Primary Dropdown -->
+        <div id="primary" class="dropdown-container">
+            <select id="primary-select" class="dropdown" onchange="showViewButton('primary')">
+                <option value="">Select Grade</option>
+                <option value="grade2A">Grade 2A</option>
+                <option value="grade2B">Grade 2B</option>
+                <option value="grade3A">Grade 3A</option>
+                <option value="grade3B">Grade 3B</option>
+                <option value="grade4A">Grade 4A</option>
+                <option value="grade4B">Grade 4B</option>
+                <option value="grade5A">Grade 5A</option>
+                <option value="grade5B">Grade 5B</option>
+            </select>
+            <button id="primary-view" class="view-btn" onclick="redirect('primary-select')">View</button>
+        </div>
+
+        <!-- Secondary Dropdown -->
+        <div id="secondary" class="dropdown-container">
+            <select id="secondary-select" class="dropdown" onchange="showViewButton('secondary')">
+                <option value="">Select Grade</option>
+                <option value="grade6A">Grade 6A</option>
+                <option value="grade6B">Grade 6B</option>
+                <option value="grade7A">Grade 7A</option>
+                <option value="grade7B">Grade 7B</option>
+                <option value="grade8A">Grade 8A</option>
+                <option value="grade8B">Grade 8B</option>
+                <option value="grade9A">Grade 9A</option>
+                <option value="grade9B">Grade 9B</option>
+            </select>
+            <button id="secondary-view" class="view-btn" onclick="redirect('secondary-select')">View</button>
+        </div>
+
+        <!-- O-Levels Dropdown -->
+        <div id="olevels" class="dropdown-container">
+            <select id="olevels-select" class="dropdown" onchange="showViewButton('olevels')">
+                <option value="">Select Grade</option>
+                <option value="grade10A">Grade 10A</option>
+                <option value="grade10B">Grade 10B</option>
+                <option value="grade11A">Grade 11A</option>
+                <option value="grade11B">Grade 11B</option>
+            </select>
+            <button id="olevels-view" class="view-btn" onclick="redirect('olevels-select')">View</button>
+        </div>
+
+        <!-- A-Levels Dropdown -->
+        <div id="alevels" class="dropdown-container">
+            <select id="alevels-select" class="dropdown" onchange="showViewButton('alevels')">
+                <option value="">Select Stream</option>
+                <option value="12com">12 Commerce</option>
+                <option value="12arts">12 Arts</option>
+                <option value="12mathsbio">12 Maths & Bio</option>
+                <option value="13com">13 Commerce</option>
+                <option value="13arts">13 Arts</option>
+                <option value="13mathsbio">13 Maths & Bio</option>
+            </select>
+            <button id="alevels-view" class="view-btn" onclick="redirect('alevels-select')">View</button>
+        </div>
+    </div>
+    
+
+    <script>
+        function toggleDropdown(id) {
+            document.querySelectorAll('.dropdown-container').forEach(div => div.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function showViewButton(id) {
+            let select = document.getElementById(id + "-select");
+            let viewBtn = document.getElementById(id + "-view");
+            viewBtn.style.display = select.value ? "inline-block" : "none";
+        }
+
+       function redirect(id) {
+    let selectedValue = document.getElementById(id).value;
+    let links = {
+        "grade2A": "https://script.google.com/macros/s/AKfycbxownTDdZzduuLQG5mgaUjQnZQPZ2Mv0v6vVX2UB9SqTEn_vm4n8qBaP2GpYSOnt9y9cA/exec",
+        "grade2B": "https://script.google.com/macros/s/AKfycbxownTDdZzduuLQG5mgaUjQnZQPZ2Mv0v6vVX2UB9SqTEn_vm4n8qBaP2GpYSOnt9y9cA/exec",
+        "grade3A": "https://script.google.com/macros/s/AKfycbwmARmAo1wvymQWCknV6JRarweonIfpQQdOf1AUKDVNLIOVHsVL_OLKxEtgketVC9ay/exec",
+        "grade3B": "https://script.google.com/macros/s/AKfycbwmARmAo1wvymQWCknV6JRarweonIfpQQdOf1AUKDVNLIOVHsVL_OLKxEtgketVC9ay/exec",
+        "grade4A": "https://script.google.com/macros/s/AKfycbxve3bGRzDbWQgYfpqEYkshFcvYSBHXJBmf6g9k9Ilc7XRHkXw0_UAy7eD8UhLM_KkHnQ/exec",
+        "grade4B": "https://script.google.com/macros/s/AKfycbxve3bGRzDbWQgYfpqEYkshFcvYSBHXJBmf6g9k9Ilc7XRHkXw0_UAy7eD8UhLM_KkHnQ/exec",
+        "grade5A":"https://script.google.com/macros/s/AKfycbwV8gjXX-DCrllp-KXezecl-KYSFLGhPAkmljKnTy5CG0Dgk-nTv7wtM1taTCBl9AS61g/exec",
+        "grade5B": "https://script.google.com/macros/s/AKfycbwV8gjXX-DCrllp-KXezecl-KYSFLGhPAkmljKnTy5CG0Dgk-nTv7wtM1taTCBl9AS61g/exec",
+        "grade6A": "https://script.google.com/macros/s/AKfycbwEmvTs4F7TDIntAJtOWC37BfOwVgkRGlj0v0CSSzMukKwL8pAnFYT4ir3oi9ARfrYi/exec",
+        "grade6B": "https://script.google.com/macros/s/AKfycbx85FwNmHYQunoi02ljjYwE8KcMDYYRyMVjILCS12YJZzltIR6XclLbZszKZW_8TWfByA/exec",
+        "grade7A": "https://script.google.com/macros/s/AKfycbwEmvTs4F7TDIntAJtOWC37BfOwVgkRGlj0v0CSSzMukKwL8pAnFYT4ir3oi9ARfrYi/exec",
+        "grade7B": "https://script.google.com/macros/s/AKfycbwEmvTs4F7TDIntAJtOWC37BfOwVgkRGlj0v0CSSzMukKwL8pAnFYT4ir3oi9ARfrYi/exec",
+        "grade8A": "https://script.google.com/macros/s/AKfycbwiVdsvb9mtB0gwLQ1sJ4krqCGeDf5eZAdIhJetCdbx/dev",
+        "grade9A": "https://script.google.com/macros/s/AKfycbxL0MTw-5bsJ_y2C_-ox6rIPiD85SX0xI8Jn9yWD-1sIcCftQyopLGLsFbUs_RSj_s/exec",
+        "grade9B": "https://script.google.com/macros/s/AKfycbxL0MTw-5bsJ_y2C_-ox6rIPiD85SX0xI8Jn9yWD-1sIcCftQyopLGLsFbUs_RSj_s/exec",
+        "grade10A": "https://script.google.com/macros/s/AKfycbz-cKWocj1AkhJh-M3EGyRpgUC8uzgfm1gcglD_HWeemmmOgWDUeio2FggapQ8OR4sxUA/exec",
+        "grade10B": "https://script.google.com/macros/s/AKfycbz-cKWocj1AkhJh-M3EGyRpgUC8uzgfm1gcglD_HWeemmmOgWDUeio2FggapQ8OR4sxUA/exec",
+        "grade11A": "https://script.google.com/macros/s/AKfycbwZZ3SKFD7YmoACzZdJbOVqUOSHglL8DdC9Br6xdPnd_TW1IxBKS5RbP7WwVguJDfU4HA/exec",
+        "grade11B": "https://script.google.com/macros/s/AKfycbwZZ3SKFD7YmoACzZdJbOVqUOSHglL8DdC9Br6xdPnd_TW1IxBKS5RbP7WwVguJDfU4HA/exec",
+        "12com": "https://your-link.com/12com",
+        "12arts": "https://your-link.com/12arts",
+        "12mathsbio": "https://your-link.com/12mathsbio",
+        "13com": "https://your-link.com/13com",
+        "13arts": "https://your-link.com/13arts",
+        "13mathsbio": "https://your-link.com/13mathsbio"
+    };
+
+    if (selectedValue && links[selectedValue]) {
+        window.location.href = links[selectedValue];
+    }
+}
+    </script>
+
+</body>
+</html>
